@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.anmol.hackon_ai.dto.AuthResponse;
+import com.anmol.hackon_ai.dto.LoginRequest;
 import com.anmol.hackon_ai.dto.RegisterRequest;
 import com.anmol.hackon_ai.service.AuthService;
 
@@ -27,5 +28,14 @@ public class AuthController {
         AuthResponse response = authService.register(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(
+            @Valid @RequestBody LoginRequest request) {
+
+        AuthResponse response = authService.login(request);
+
+        return ResponseEntity.ok(response);
     }
 }
