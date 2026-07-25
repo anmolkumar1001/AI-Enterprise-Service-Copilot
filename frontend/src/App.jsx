@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import CreateTicket from "./pages/CreateTicket";
 import MyTickets from "./pages/MyTickets";
 import PrivateRoute from "./routes/PrivateRoute";
+import AIChat from "./pages/AIChat";
 
 
 function App() {
@@ -37,6 +38,15 @@ function App() {
           element={
             <PrivateRoute>
               <MyTickets />
+            </PrivateRoute>
+          }
+        />
+
+        <Route 
+          path="/ai"
+          element={
+            <PrivateRoute>
+              <AIChat /> 
             </PrivateRoute>
           }
         />

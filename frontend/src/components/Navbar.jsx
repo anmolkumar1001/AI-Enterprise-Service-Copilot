@@ -36,6 +36,10 @@ function Navbar() {
                         My Tickets
                     </Link>
 
+                    <Link className="nav-link" to="/ai">
+                        AI Assistant
+                    </Link>
+
                     <button
                         className="btn btn-danger ms-3"
                         onClick={logout}
