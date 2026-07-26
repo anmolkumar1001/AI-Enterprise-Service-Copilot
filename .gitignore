@@ -1,0 +1,14 @@
+### VS Code ###
+.vscode/
+
+### Environment Variables ###
+.env
+*.env
+
+### Java ###
+target/
+*.class
+
+### Node ###
+node_modules/
+dist/
