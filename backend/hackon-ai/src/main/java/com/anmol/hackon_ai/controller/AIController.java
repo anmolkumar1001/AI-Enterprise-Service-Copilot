@@ -18,9 +18,7 @@ public class AIController {
     @PostMapping("/chat")
     public AIResponse chat(@RequestBody AIRequest request) {
 
-        return new AIResponse(
-                aiService.getResponse(request.getMessage())
-        );
+        return aiService.getResponse(request.getMessage());
 
     }
 

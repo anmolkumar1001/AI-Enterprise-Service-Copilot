@@ -2,26 +2,42 @@ package com.anmol.hackon_ai.service;
 
 import org.springframework.stereotype.Service;
 
+import com.anmol.hackon_ai.dto.AIResponse;
+
 @Service
 public class AIService {
 
-    public String getResponse(String message) {
+    public AIResponse getResponse(String message) {
 
-        message = message.toLowerCase();
+        String msg = message.toLowerCase();
 
-        if (message.contains("vpn")) {
-            return "Try reconnecting your VPN and restarting the VPN client.";
+        if(msg.contains("vpn")) {
+
+            return new AIResponse(
+                    "Try reconnecting your VPN and restart the VPN client.",
+                    false);
+
         }
 
-        if (message.contains("password")) {
-            return "Please reset your password using the self-service portal.";
+        if(msg.contains("password")) {
+
+            return new AIResponse(
+                    "Please reset your password using the self-service portal.",
+                    false);
+
         }
 
-        if (message.contains("printer")) {
-            return "Check the printer connection and restart the printer.";
+        if(msg.contains("printer")) {
+
+            return new AIResponse(
+                    "Restart the printer and verify the network connection.",
+                    false);
+
         }
 
-        return "I couldn't identify the issue. Please create a support ticket.";
+        return new AIResponse(
+                "I couldn't identify this issue. You can create a support ticket automatically.",
+                true);
 
     }
 
