@@ -30,8 +30,12 @@ public class TicketService {
         ticket.setStatus("OPEN");
         ticket.setCreatedAt(LocalDateTime.now());
 
-        // Logged-in user's email
-        ticket.setCreatedBy(authentication.getName());
+        if(authentication != null) {
+            ticket.setCreatedBy(authentication.getName());      
+        } 
+        else {
+            ticket.setCreatedBy("watsonx-orchestrate");
+        }
 
         return ticketRepository.save(ticket);
     }
