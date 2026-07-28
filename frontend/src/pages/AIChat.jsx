@@ -15,7 +15,7 @@ function AIChat() {
 
         try {
 
-            const response = await api.post("/ai/chat", {
+            const response = await api.post("/api/ai/chat", {
                 message: message
             });
 

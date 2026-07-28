@@ -42,6 +42,8 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/tickets").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/tickets").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/tickets/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
