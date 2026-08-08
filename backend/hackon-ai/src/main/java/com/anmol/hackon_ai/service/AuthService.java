@@ -7,6 +7,7 @@ import com.anmol.hackon_ai.dto.AuthResponse;
 import com.anmol.hackon_ai.dto.LoginRequest;
 import com.anmol.hackon_ai.dto.RegisterRequest;
 import com.anmol.hackon_ai.entity.User;
+import com.anmol.hackon_ai.enums.Role;
 import com.anmol.hackon_ai.exception.EmailAlreadyExistsException;
 import com.anmol.hackon_ai.exception.InvalidCredentialsException;
 import com.anmol.hackon_ai.repository.UserRepository;
@@ -35,7 +36,7 @@ public class AuthService {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));   // We'll encrypt this later
-        user.setRole("USER");
+        user.setRole(Role.EMPLOYEE);
 
         userRepository.save(user);
 
@@ -51,7 +52,7 @@ public class AuthService {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String token = jwtService.generateToken(user.getEmail());
+        String token = jwtService.generateToken(user);
 
         return new AuthResponse("Login successful", token);
     }

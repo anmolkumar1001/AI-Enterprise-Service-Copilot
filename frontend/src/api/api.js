@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://enterprise-service-copilot.onrender.com",
+    // baseURL: "https://enterprise-service-copilot.onrender.com",
+    baseURL: "http://localhost:8080",
 });
 
 api.interceptors.request.use((config) => {

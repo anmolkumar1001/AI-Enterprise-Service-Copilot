@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.anmol.hackon_ai.dto.TicketRequest;
 import com.anmol.hackon_ai.entity.Ticket;
+import com.anmol.hackon_ai.enums.TicketStatus;
 import com.anmol.hackon_ai.repository.TicketRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class TicketService {
         ticket.setCategory(request.getCategory());
         ticket.setPriority(request.getPriority());
 
-        ticket.setStatus("OPEN");
+        ticket.setStatus(TicketStatus.OPEN);
         ticket.setCreatedAt(LocalDateTime.now());
 
         if(authentication != null) {
@@ -55,12 +56,18 @@ public class TicketService {
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
     }
 
-    public Ticket updateStatus(Long id, String status) {
+    public Ticket updateStatus(Long id, TicketStatus status) {
 
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
         ticket.setStatus(status);
+
+        ticket.setUpdatedAt(LocalDateTime.now());
+
+        if(status == TicketStatus.RESOLVED) {
+            ticket.setResolvedAt(LocalDateTime.now());
+        }
 
         return ticketRepository.save(ticket);
     }
@@ -68,5 +75,22 @@ public class TicketService {
     public void deleteTicket(Long id) {
 
         ticketRepository.deleteById(id);
+    }
+
+    public Ticket assignTicket(Long id, Authentication authentication) {
+
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+
+        ticket.setAssignedTo(authentication.getName());
+        ticket.setStatus(TicketStatus.IN_PROGRESS);
+        ticket.setUpdatedAt(LocalDateTime.now());
+
+        return ticketRepository.save(ticket);
+    }
+
+    public List<Ticket> getAssignedTickets(Authentication authentication) {
+
+        return ticketRepository.findByAssignedTo(authentication.getName());
     }
 }

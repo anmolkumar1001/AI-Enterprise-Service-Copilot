@@ -2,8 +2,14 @@ package com.anmol.hackon_ai.entity;
 
 import java.time.LocalDateTime;
 
+import com.anmol.hackon_ai.enums.TicketCategory;
+import com.anmol.hackon_ai.enums.TicketPriority;
+import com.anmol.hackon_ai.enums.TicketStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,14 +35,27 @@ public class Ticket {
     @Column(length = 1000)
     private String description;
 
-    private String category;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TicketCategory category;
 
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TicketPriority priority;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TicketStatus status;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    // Email of the logged-in user who created the ticket
+    private LocalDateTime updatedAt;
+
+    private LocalDateTime resolvedAt;
+
+    @Column(nullable = false)
     private String createdBy;
+
+    private String assignedTo;
 }
