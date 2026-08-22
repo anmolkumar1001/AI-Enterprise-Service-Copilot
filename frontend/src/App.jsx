@@ -6,6 +6,8 @@ import CreateTicket from "./pages/CreateTicket";
 import MyTickets from "./pages/MyTickets";
 import PrivateRoute from "./routes/PrivateRoute";
 import AIChat from "./pages/AIChat";
+import ManageTickets from "./pages/ManageTickets";
+import ManageUsers from "./pages/ManageUsers";
 
 
 function App() {
@@ -40,6 +42,24 @@ function App() {
               <MyTickets />
             </PrivateRoute>
           }
+        />
+
+        <Route
+          path="/tickets/manage"
+          element={
+            <PrivateRoute>
+              <ManageTickets />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/users/manage"
+          element={
+            <PrivateRoute>
+              <ManageUsers />
+            </PrivateRoute>
+          } 
         />
 
         <Route 

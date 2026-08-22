@@ -7,11 +7,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthResponse {
+public class UserResponse {
 
-    private String message;
-
-    private String token;
-
+    private Long id;
+    private String name;
+    private String email;
     private Role role;
 }

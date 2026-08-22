@@ -4,9 +4,24 @@ function Navbar() {
 
     const navigate = useNavigate();
 
+    const token = localStorage.getItem("token");
+
+    let role = null;
+
+    if(token) {
+        try {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            role = payload.role;
+        }
+        catch (error) {
+            console.error("Error parsing token:", error);
+        }
+    }
+
     const logout = () => {
 
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
 
         navigate("/");
 
@@ -28,13 +43,29 @@ function Navbar() {
                         Dashboard
                     </Link>
 
-                    <Link className="nav-link" to="/tickets/create">
-                        Create Ticket
-                    </Link>
+                   {role === "EMPLOYEE" && (
+                        <>
+                            <Link className="nav-link" to="/tickets/create">
+                                Create Ticket
+                            </Link>
 
-                    <Link className="nav-link" to="/tickets/my">
-                        My Tickets
-                    </Link>
+                            <Link className="nav-link" to="/tickets/my">
+                                My Tickets
+                            </Link>
+                        </>
+                    )}
+
+                    {(role === "SUPPORT_ENGINEER" || role === "ADMIN") && (
+                        <Link className="nav-link" to="/tickets/manage">
+                            Manage Tickets
+                        </Link>
+                    )}
+
+                    {role === "ADMIN" && (
+                        <Link className="nav-link" to="/users/manage">
+                            Manage Users
+                        </Link>
+                    )}
 
                     <Link className="nav-link" to="/ai">
                         AI Assistant

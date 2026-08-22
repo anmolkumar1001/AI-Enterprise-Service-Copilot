@@ -35,12 +35,12 @@ public class AuthService {
 
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));   // We'll encrypt this later
+        user.setPassword(passwordEncoder.encode(request.getPassword())); 
         user.setRole(Role.EMPLOYEE);
 
         userRepository.save(user);
 
-        return new AuthResponse("User registered successfully", null);
+        return new AuthResponse("User registered successfully", null, null);
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -54,6 +54,6 @@ public class AuthService {
 
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse("Login successful", token);
+        return new AuthResponse("Login successful", token, user.getRole());
     }
 }

@@ -30,6 +30,7 @@ function Login() {
             const response = await login(formData);
 
             localStorage.setItem("token", response.token);
+            localStorage.setItem("role", response.role);
 
             navigate("/dashboard");
         }
