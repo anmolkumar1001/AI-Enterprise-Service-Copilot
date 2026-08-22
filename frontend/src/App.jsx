@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -8,6 +8,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import AIChat from "./pages/AIChat";
 import ManageTickets from "./pages/ManageTickets";
 import ManageUsers from "./pages/ManageUsers";
+import RoleRoute from "./routes/RoleRoute";
 
 
 function App() {
@@ -29,36 +30,36 @@ function App() {
         <Route
           path="/tickets/create"
           element={
-            <PrivateRoute>
+            <RoleRoute allowedRoles={["EMPLOYEE"]}>
               <CreateTicket />
-            </PrivateRoute>
+            </RoleRoute>
           }
         />
 
         <Route
           path="/tickets/my"
           element={
-            <PrivateRoute>
+            <RoleRoute allowedRoles={["EMPLOYEE"]}>
               <MyTickets />
-            </PrivateRoute>
+            </RoleRoute>
           }
         />
 
         <Route
           path="/tickets/manage"
           element={
-            <PrivateRoute>
+            <RoleRoute allowedRoles={["SUPPORT_ENGINEER", "ADMIN"]}>
               <ManageTickets />
-            </PrivateRoute>
+            </RoleRoute>
           }
         />
 
         <Route
           path="/users/manage"
           element={
-            <PrivateRoute>
+            <RoleRoute allowedRoles={["ADMIN"]}>
               <ManageUsers />
-            </PrivateRoute>
+            </RoleRoute>
           } 
         />
 
